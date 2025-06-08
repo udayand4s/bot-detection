@@ -1,23 +1,47 @@
 import mongoose from 'mongoose';
 
-export async function dbConnect() {
-    if (mongoose.connection.readyState === 1) {
-        console.log('MongoDB is already connected');
-        return;
-    }
-    try {
-        const db = await mongoose.connect(process.env.MONGODB_URI as string,{
-            serverSelectionTimeoutMS: 30000, // 30 seconds to select server
-            socketTimeoutMS: 30000, // 30 seconds for socket operations
-            connectTimeoutMS: 30000, // 30 seconds to establish connection
-            bufferCommands: false, // Don't buffer commands if not connected
-        });
-        if (db.connections[0].readyState === 1) {
+const MONGODB_URI = process.env.MONGODB_URI;
 
-            console.log('MongoDB connected:');
-        }
+if (!MONGODB_URI) {
+    throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+}
+
+// Global variable to cache the connection
+let cached = (global as any).mongoose;
+
+if (!cached) {
+    cached = (global as any).mongoose = { conn: null, promise: null };
+}
+
+export async function dbConnect() {
+    if (cached.conn) {
+        console.log('Using cached MongoDB connection');
+        return cached.conn;
+    }
+
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+            serverSelectionTimeoutMS: 30000,
+            socketTimeoutMS: 30000,
+            connectTimeoutMS: 30000,
+            maxPoolSize: 10,
+            minPoolSize: 5,
+        };
+
+        console.log('Creating new MongoDB connection...');
+        cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+            console.log('MongoDB connected successfully');
+            return mongoose;
+        });
+    }
+
+    try {
+        cached.conn = await cached.promise;
+        return cached.conn;
     } catch (error) {
-        console.log("database connection failed", error);
-        throw error
+        console.error('MongoDB connection failed:', error);
+        cached.promise = null;
+        throw error;
     }
 }
