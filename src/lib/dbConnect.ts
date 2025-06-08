@@ -1,47 +1,24 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-}
-
-// Global variable to cache the connection
-let cached = (global as any).mongoose;
-
-if (!cached) {
-    cached = (global as any).mongoose = { conn: null, promise: null };
-}
-
 export async function dbConnect() {
-    if (cached.conn) {
-        console.log('Using cached MongoDB connection');
-        return cached.conn;
+    if (mongoose.connection.readyState === 1) {
+        console.log('MongoDB is already connected');
+        return;
     }
-
-    if (!cached.promise) {
-        const opts = {
-            bufferCommands: false,
-            serverSelectionTimeoutMS: 30000,
-            socketTimeoutMS: 30000,
-            connectTimeoutMS: 30000,
-            maxPoolSize: 10,
-            minPoolSize: 5,
-        };
-
-        console.log('Creating new MongoDB connection...');
-        cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
-            console.log('MongoDB connected successfully');
-            return mongoose;
-        });
-    }
-
     try {
-        cached.conn = await cached.promise;
-        return cached.conn;
+        const db = await mongoose.connect(process.env.MONGODB_URI as string, {
+            serverSelectionTimeoutMS: 5000, // Reduced from 30000
+            socketTimeoutMS: 45000,
+            connectTimeoutMS: 10000, // Reduced from 30000
+            bufferCommands: false,
+            maxPoolSize: 10,
+            retryWrites: true,
+        });
+        if (db.connections[0].readyState === 1) {
+            console.log('MongoDB connected:');
+        }
     } catch (error) {
-        console.error('MongoDB connection failed:', error);
-        cached.promise = null;
-        throw error;
+        console.log("database connection failed", error);
+        throw error
     }
 }
