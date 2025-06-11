@@ -54,12 +54,13 @@ try{
         success: true,
         bet,
     });
-
+    
+    
 }catch (error) {
-    console.error("Error in POST /api/bet:", error);
+    
     return NextResponse.json({
         success: false,
         message: "Failed to create bet",
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: error
     }, { status: 500 });
 }}

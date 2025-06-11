@@ -17,16 +17,16 @@ async function getRedisClient(): Promise<RedisClientType | null> {
       },
     });
 
-    redisClient.on('error', (err) => console.error('Redis error:', err));
+      redisClient.on('error', (err) => console.error('Redis error:', err));
 
-    await redisClient.connect();
-    console.log('Redis connected');
-    return redisClient;
+      await redisClient.connect();
+      console.log('Redis connected');
+      return redisClient;
   } catch (error) {
-    console.error('Redis connection failed:', error);
-    redisClient = null;
-    return null;
-  }
+      console.error('Redis connection failed:', error);
+      redisClient = null;
+      return null;
+    }
 }
 
 export default getRedisClient;
