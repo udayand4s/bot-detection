@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import axios from 'axios';
 
 interface BetFormData {
   userId: string;
@@ -78,18 +79,16 @@ export default function Home() {
     setResponse(null);
     
     try {
-      const res = await fetch('/api/bet', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const res = await axios.post('/api/bet', {
           ...formData,
           timestamp: new Date().toISOString(),
-        }),
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
       });
       
-      const data: ApiResponse = await res.json();
+      const data: ApiResponse = res.data;
       setResponse(data);
       
       if (data.success) {
