@@ -2,7 +2,6 @@ import { Schema, model, models, Document } from 'mongoose';
 
 export interface Bet extends Document {
     userId: string;
-    ipAddress: string; // Fixed typo: ipAdress -> ipAddress
     betAmount: number;
     timestamp: Date;
     gameId: string;
@@ -12,14 +11,14 @@ export interface Bet extends Document {
         country?: string;
         region?: string;
         city?: string;
-        ll?: number[]; // [latitude, longitude]
+        ll?: number[]; 
         timezone?: string;
     }
 }
 
 const betSchema = new Schema<Bet>({
     userId: { type: String, required: true },
-    ipAddress: { type: String, required: true }, // Fixed typo
+    ipAddress: { type: String, required: true }, 
     betAmount: { type: Number, required: true },
     timestamp: { type: Date, default: Date.now },
     gameId: { type: String, required: true },
