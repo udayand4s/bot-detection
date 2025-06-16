@@ -4,7 +4,7 @@ A comprehensive bot detection system built with Next.js that identifies and miti
 
 ## 🤖 Overview
 
-This project implements advanced bot detection mechanisms to distinguish between legitimate human users and automated bots. The system analyzes various behavioral patterns, device fingerprints, and interaction metrics to provide real-time bot classification.
+This project implements advanced bot detection mechanisms to distinguish between legitimate human users and automated bots. The system analyzes various behavioral patterns, device fingerprints, and interaction metrics to provide real-time bot or fraudulent users classification.
 
 ## ✨ Features
 
