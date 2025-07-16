@@ -3,6 +3,7 @@ import { Schema, model, models, Document } from 'mongoose';
 export interface Bet extends Document {
     userId: string;
     betAmount: number;
+    ipAddress: string;
     timestamp: Date;
     gameId: string;
     gameName: string;
