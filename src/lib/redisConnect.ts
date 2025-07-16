@@ -10,10 +10,10 @@ async function getRedisClient(): Promise<RedisClientType | null> {
   try {
     redisClient = createClient({
       username: 'default',
-      password: 'IKmIPHgxUiBtsvCro82UuVdZOizDVjBV',
+      password: process.env.REDIS_PASSWORD,
       socket: {
-        host: 'redis-18373.crce206.ap-south-1-1.ec2.redns.redis-cloud.com',
-        port: 18373,
+        host: process.env.REDIS_HOST || '',
+        port: process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : undefined
       },
     });
 

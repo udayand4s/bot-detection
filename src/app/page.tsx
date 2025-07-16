@@ -157,12 +157,12 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
+            <h1 className="text-4xl font-bold text-white mb-2">
               Place Your Bet
             </h1>
             <p className="text-gray-300">
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
 
           {/* Main Form Card */}
-          <div className="bg-gray-900 rounded-2xl shadow-2xl border border-gray-800 overflow-hidden">
+          <div className="bg-[rgb(26,26,26)] rounded-2xl shadow-2xl border border-[rgb(68,68,68)] overflow-hidden">
             <div className="p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* User ID */}
@@ -185,8 +185,8 @@ export default function Home() {
                     name="userId"
                     value={formData.userId}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-white ${
-                      errors.userId ? 'border-red-500' : 'border-gray-700'
+                    className={`w-full px-4 py-3 bg-[rgb(26,26,26)] border rounded-lg focus:ring-2 focus:ring-[rgb(255,199,44)] focus:border-transparent transition-all duration-200 text-white ${
+                      errors.userId ? 'border-red-500' : 'border-[rgb(68,68,68)]'
                     }`}
                     placeholder="Enter your user ID"
                   />
@@ -212,8 +212,8 @@ export default function Home() {
                         gameId: selectedGame?.id || ''
                       }));
                     }}
-                    className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-white ${
-                      errors.gameName ? 'border-red-500' : 'border-gray-700'
+                    className={`w-full px-4 py-3 bg-[rgb(26,26,26)] border rounded-lg focus:ring-2 focus:ring-[rgb(255,199,44)] focus:border-transparent transition-all duration-200 text-white ${
+                      errors.gameName ? 'border-red-500' : 'border-[rgb(68,68,68)]'
                     }`}
                   >
                     <option value="">Choose a game...</option>
@@ -239,7 +239,7 @@ export default function Home() {
                     name="gameId"
                     value={formData.gameId}
                     readOnly
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-700 rounded-lg text-gray-200 cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-[rgb(26,26,26)] border border-[rgb(68,68,68)] rounded-lg text-gray-200 cursor-not-allowed"
                     placeholder="Auto-filled when game is selected"
                   />
                 </div>
@@ -257,8 +257,8 @@ export default function Home() {
                     onChange={handleInputChange}
                     min="0.01"
                     step="0.01"
-                    className={`w-full px-4 py-3 bg-gray-800 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-white ${
-                      errors.betAmount ? 'border-red-500' : 'border-gray-700'
+                    className={`w-full px-4 py-3 bg-[rgb(26,26,26)] border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-white ${
+                      errors.betAmount ? 'border-red-500' : 'border-[rgb(68,68,68)]'
                     }`}
                     placeholder="0.00"
                   />
@@ -271,7 +271,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed shadow-lg"
+                  className="w-full bg-[rgb(256,199,44)] disabled:from-gray-600 disabled:to-gray-600 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed shadow-lg"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center">
